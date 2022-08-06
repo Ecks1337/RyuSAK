@@ -10,7 +10,7 @@ import { hasDnsFile } from "../../index";
 import { MirrorDirMeta } from "../../types";
 import Enumerable from "linq";
 
-const CDN_URL: string = "https://fsn1-1.mirror.lewd.wtf";
+const CDN_URL: string = "https://mirror.lewd.wtf";
 
 export enum HTTP_PATHS {
   FIRMWARE_LIST     = "/archive/nintendo/switch/firmware/?format=json",
