@@ -4,14 +4,14 @@ const Zip = require("adm-zip");
 module.exports = {
   "forge": "./forge.config.js",
   "packagerConfig": {
-    "icon": "./icon.ico",
+    "icon": "./src/assets/icon.ico",
     "executableName": "RyuSAK"
   },
   "makers": [
     {
       "name": "@electron-forge/maker-squirrel",
       "config": {
-        "setupIcon": "./icon.ico"
+        "setupIcon": "./src/assets/icon.ico"
       }
     },
     {

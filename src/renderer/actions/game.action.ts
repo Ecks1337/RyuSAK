@@ -1,7 +1,6 @@
 import { SetState } from "zustand/vanilla";
 import Swal from "sweetalert2";
 import useTranslation from "../i18n/I18nService";
-import useStore from "./state";
 import { invokeIpc } from "../utils";
 
 const { t } = useTranslation();
@@ -13,7 +12,6 @@ export interface IGameAction {
 
 const createGameSlice = (set: SetState<IGameAction>): IGameAction => ({
   deleteGameAction: async (titleId, dataPath) => {
-    const state = useStore.getState();
     const { isConfirmed } = await Swal.fire({
       icon: "warning",
       title: t("areYouSure"),
@@ -27,7 +25,7 @@ const createGameSlice = (set: SetState<IGameAction>): IGameAction => ({
       return;
     }
 
-    await invokeIpc("delete-game", titleId, dataPath, state.currentEmu);
+    await invokeIpc("delete-game", titleId, dataPath);
     return set({ deletedGame: titleId });
   }
 });

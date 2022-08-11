@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { LS_KEYS } from "../../../types";
 import Swal from "sweetalert2";
-import pirate_icon from "../../resources/pirate_icon.png";
 import useTranslation from "../../i18n/I18nService";
 
 const TOSComponent = () => {
@@ -14,10 +13,8 @@ const TOSComponent = () => {
     if (!accepted) {
       while (!letUserPass) {
         await Swal.fire({
-          html: `<div>
-            <p><img src="${pirate_icon}" alt=""></p>
-            <p style="text-align: left">${t("tos")}</p>
-          </div>`,
+          html: t("tos"),
+          icon: "warning",
           input: "checkbox",
           inputPlaceholder: t("agree"),
           allowOutsideClick: false,

@@ -28,7 +28,7 @@ const UpdateComponent = ({ state }: { state: "downloading" | "downloaded" }) => 
   if ((process.platform !== "win32" || isPortable) && currentVersion && latestVersion && semver.lt(currentVersion, latestVersion)) {
     return <Box p={2} pb={0}>
       <Alert severity="info">
-        You have version v{ currentVersion }, please consider updating to the latest version from <a href="https://github.com/Ecks1337/RyuSAK" target="_blank">Github</a> (v{ latestVersion })
+        You have version v{currentVersion}, please consider updating to the latest version from <a href="https://github.com/Ecks1337/RyuSAK/releases/latest" target="_blank">Github</a> (v{ latestVersion })
       </Alert>
     </Box>;
   }

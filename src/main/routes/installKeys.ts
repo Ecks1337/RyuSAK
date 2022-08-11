@@ -1,10 +1,9 @@
-import { RyusakEmulatorsKind } from "../../types";
 import path from "path";
 import fs from "fs-extra";
 import HttpService from "../services/HttpService";
 
-export const installKeys = async (dataPath: string, emu: RyusakEmulatorsKind) => {
-  const destPath = emu === "ryu" ? path.join(dataPath, "system") : path.join(dataPath, "keys");
+export const installKeys = async (dataPath: string) => {
+  const destPath = path.join(dataPath, "system");
   await fs.ensureDir(destPath);
   const keysContent = await HttpService.downloadKeys();
   const keysPath = path.join(destPath, "prod.keys");

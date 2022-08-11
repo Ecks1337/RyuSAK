@@ -2,7 +2,7 @@ import HttpService from "../services/HttpService";
 import fs from "fs-extra";
 import path from "path";
 import { BrowserWindow } from "electron";
-import { RyusakEmulatorsKind, MirrorDirMeta } from "../../types";
+import { MirrorDirMeta } from "../../types";
 import Zip from "adm-zip";
 import glob from "glob";
 
@@ -10,7 +10,7 @@ export type getModsVersionsProps = [string];
 
 export type getModsListForVersionProps = [string, string];
 
-export type downloadModProps = [string, string, string, string, RyusakEmulatorsKind];
+export type downloadModProps = [string, string, string, string];
 
 export const getModsVersions = async (...args: getModsVersionsProps) => {
   const [titleId] = args;
@@ -25,17 +25,11 @@ export const getModsListForVersion = async (...args: getModsListForVersionProps)
 export const getModPathForTitleId = (id: string, dataPath: string) => path.resolve(dataPath, "mods", "contents", id.toLocaleLowerCase());
 
 export const downloadMod = async (mainWindow: BrowserWindow, ...args: downloadModProps): Promise<string> => {
-  const [titleId, version, modName, dataPath, emulator] = args;
+  const [titleId, version, modName, dataPath] = args;
   const { modName: name, url } = await HttpService.getModName(titleId, version, modName);
   let destPath = "";
 
-  switch (emulator) {
-    case "ryu":
-      destPath = getModPathForTitleId(titleId, dataPath);
-      break;
-    case "yuzu":
-      destPath = path.resolve(dataPath, "load",titleId.toUpperCase());
-  }
+  destPath = getModPathForTitleId(titleId, dataPath);
 
   await fs.ensureDir(destPath);
   const modDestPath = path.resolve(destPath, name);

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./bootstrap.css";
+import "./loading.css";
 import useTranslation from "../../i18n/I18nService";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { invokeIpc } from "../../utils";
 
-const BootstrapComponent = () => {
+const LoadingComponent = () => {
   const { t } = useTranslation();
   const [hasDns, setHasDns] = useState(false);
 
@@ -18,7 +18,7 @@ const BootstrapComponent = () => {
         <div></div>
         <div></div>
       </div>
-      <h3 dangerouslySetInnerHTML={{ __html: t("loading_data") }} />
+      <h3>{t("loading_data")}</h3>
 
       <FormGroup>
         <FormControlLabel
@@ -31,4 +31,4 @@ const BootstrapComponent = () => {
   );
 };
 
-export default BootstrapComponent;
+export default LoadingComponent;

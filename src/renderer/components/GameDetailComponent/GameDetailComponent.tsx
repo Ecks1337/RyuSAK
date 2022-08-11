@@ -49,7 +49,6 @@ const GameDetailComponent = () => {
   const { state } = useLocation();
   const { titleId, dataPath } = state as IGameDetailProps;
   const [
-    currentEmu,
     saves,
     setCurrentSaveDownloadAction,
     mods,
@@ -62,7 +61,6 @@ const GameDetailComponent = () => {
     deletedGame,
     threshold
   ] = useStore(state => [
-    state.currentEmu,
     state.saves,
     state.setCurrentSaveDownloadAction,
     state.mods,
@@ -112,10 +110,8 @@ const GameDetailComponent = () => {
 
   useEffect(() => {
     invokeIpc("build-metadata-from-titleId", titleId).then(d => setMetaData(d));
-    if (currentEmu === "ryu") {
-      invokeIpc("getRyujinxCompatibility", titleId).then(extractCompatibilityLabels);
-      invokeIpc("count-shaders", titleId, dataPath).then(setLocalShadersCount);
-    }
+    invokeIpc("getRyujinxCompatibility", titleId).then(extractCompatibilityLabels);
+    invokeIpc("count-shaders", titleId, dataPath).then(setLocalShadersCount);
   }, [titleId, needRefreshShaders]);
 
   const renderCompatibilityData = () => (
@@ -133,14 +129,12 @@ const GameDetailComponent = () => {
           </Button>)}
         >
           {
-
             compat.map(c => (
               <Tooltip key={c.name} title={c.description} arrow enterDelay={0}>
                 <Chip variant="outlined" color="primary" size="small" style={{ marginRight: 8 }} label={c.name} />
               </Tooltip>
             ))
           }
-
           {
             compat.length === 0 && t("noCompatData")
           }
@@ -179,17 +173,13 @@ const GameDetailComponent = () => {
       <Divider />
       <br />
 
-      {
-        currentEmu === "ryu" && (
-          <div style={{ height: 70 }}>
-            {
-              (compat !== null)
-                ? renderCompatibilityData()
-                : (<Alert severity="info">Loading ...</Alert>)
-            }
-          </div>
-        )
-      }
+      <div style={{ height: 70 }}>
+        {
+          (compat !== null)
+            ? renderCompatibilityData()
+            : (<Alert severity="info">Loading ...</Alert>)
+        }
+      </div>
 
       <Grid container mt={0}>
         <Grid item xs={2}>
@@ -203,7 +193,7 @@ const GameDetailComponent = () => {
         <Grid item xs={4} p={1} pl={2}>
           <p style={{ marginTop: 0 }}>
             <Button
-              onClick={() => invokeIpc("openFolderForGame", titleId, "shaders", dataPath, currentEmu)}
+              onClick={() => invokeIpc("openFolderForGame", titleId, "shaders", dataPath)}
               variant="contained"
               fullWidth
             >
@@ -212,7 +202,7 @@ const GameDetailComponent = () => {
           </p>
           <p>
             <Button
-              onClick={() => invokeIpc("openFolderForGame", titleId, "mods", dataPath, currentEmu)}
+              onClick={() => invokeIpc("openFolderForGame", titleId, "mods", dataPath)}
               variant="contained"
               fullWidth
             >
@@ -253,79 +243,64 @@ const GameDetailComponent = () => {
               </h3>
             </Grid>
 
-            {
-              currentEmu === "ryu" && (
-                <Grid item xs={9}>
+            <Grid item xs={9}>
 
-                  <h3 style={{ margin: "0 auto", textAlign: "right" }}>
-                    {t("threshold")}
-                    <Tooltip placement="right" title={(<div dangerouslySetInnerHTML={{ __html: t("shaderThreshold") }} />)}>
-                      <IconButton style={{ position: "relative", top: -3 }} size="small" color="primary">
-                        <InfoIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <code style={{ position: "relative", top: -3 }}>{threshold}</code>
-                  </h3>
-                </Grid>
-              )
-            }
+              <h3 style={{ margin: "0 auto", textAlign: "right" }}>
+                {t("threshold")}
+                <Tooltip placement="right" title={(<div dangerouslySetInnerHTML={{ __html: t("shaderThreshold") }} />)}>
+                  <IconButton style={{ position: "relative", top: -3 }} size="small" color="primary">
+                    <InfoIcon />
+                  </IconButton>
+                </Tooltip>
+                <code style={{ position: "relative", top: -3 }}>{threshold}</code>
+              </h3>
+            </Grid>
 
             <Grid item xs={12}>
               <Divider />
             </Grid>
           </Grid>
+          <GridWithVerticalSeparator container pt={2} spacing={0}>
+            <GridWithVerticalSeparator item xs pr={2}>
+              <Box>
+                <TwoLinesTitle variant="h6" align="center">{t("localShadersCount")}</TwoLinesTitle>
+                <p><Button style={{ pointerEvents: "none" }} variant="outlined" fullWidth>{localShadersCount}</Button></p>
+                <p>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    disabled={threshold == -1 ? true : ((ryusakShadersCount + threshold) >= localShadersCount)}
+                    onClick={() => shareShaders(metaData.titleId, dataPath, localShadersCount, ryusakShadersCount)}
+                  >
+                    {threshold == -1 ? "Shader uploading is currently unavailable" : t("shareShaders")}
+                  </Button>
+                </p>
+              </Box>
+            </GridWithVerticalSeparator>
 
-          {
-            currentEmu === "ryu"
-             ? (<GridWithVerticalSeparator container pt={2} spacing={0}>
-                <GridWithVerticalSeparator item xs pr={2}>
-                  <Box>
-                    <TwoLinesTitle variant="h6" align="center">{t("localShadersCount")}</TwoLinesTitle>
-                    <p><Button style={{ pointerEvents: "none" }} variant="outlined" fullWidth>{localShadersCount}</Button></p>
-                    <p>
-                      <Button
-                        variant="contained"
-                        fullWidth
-                        disabled={threshold == -1 ? true : ((ryusakShadersCount + threshold) >= localShadersCount)}
-                        onClick={() => shareShaders(metaData.titleId, dataPath, localShadersCount, ryusakShadersCount)}
-                      >
-                        {threshold == -1 ? "Shader uploading is currently unavailable" : t("shareShaders")}
-                      </Button>
-                    </p>
-                  </Box>
-                </GridWithVerticalSeparator>
+            <Divider flexItem orientation="vertical" />
 
-                <Divider flexItem orientation="vertical" />
-
-                <GridWithVerticalSeparator item xs pl={2}>
-                  <Box>
-                    <TwoLinesTitle variant="h6" align="center">{t("ryusakShadersCount")}</TwoLinesTitle>
-                    <p>
-                      <Button style={{ pointerEvents: "none" }} variant="outlined" fullWidth>
-                        { ryusakShadersCount }
-                      </Button>
-                    </p>
-                    <p>
-                      <Button
-                        variant="contained"
-                        fullWidth
-                        disabled={ryusakShadersCount === 0}
-                        onClick={() => downloadShadersAction(metaData.titleId, dataPath)}
-                      >
-                        {t("dlShaders")}
-                      </Button>
-                    </p>
-                  </Box>
-                </GridWithVerticalSeparator>
-              </GridWithVerticalSeparator>)
-              : (
-                <Box mt={2}>
-                  <Alert severity="info">
-                    <span dangerouslySetInnerHTML={{ __html: t("shadersYuzu") }} />
-                  </Alert>
-                </Box>
-              )
-          }
+            <GridWithVerticalSeparator item xs pl={2}>
+              <Box>
+                <TwoLinesTitle variant="h6" align="center">{t("ryusakShadersCount")}</TwoLinesTitle>
+                <p>
+                  <Button style={{ pointerEvents: "none" }} variant="outlined" fullWidth>
+                    {ryusakShadersCount}
+                  </Button>
+                </p>
+                <p>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    disabled={ryusakShadersCount === 0}
+                    onClick={() => downloadShadersAction(metaData.titleId, dataPath)}
+                  >
+                    {t("dlShaders")}
+                  </Button>
+                </p>
+              </Box>
+            </GridWithVerticalSeparator>
+          </GridWithVerticalSeparator>
         </Grid>
 
         <Grid item xs={12}>

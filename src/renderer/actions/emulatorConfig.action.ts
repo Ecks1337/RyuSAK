@@ -3,7 +3,6 @@ import { IAlert } from "./alert.action";
 import { RyusakEmulatorConfig, RyusakEmulatorGame, RyusakEmulatorMode, LS_KEYS } from "../../types";
 import Swal from "sweetalert2";
 import { i18n } from "../app";
-import { ITitleBar } from "./titleBar.actions";
 import { invokeIpc } from "../utils";
 
 export interface IEmulatorConfig {
@@ -19,7 +18,7 @@ export interface IEmulatorConfig {
 
 const configuredEmulators: IEmulatorConfig["emulatorBinariesPath"] = JSON.parse(localStorage.getItem(LS_KEYS.CONFIG)) || [];
 
-const emulatorConfig = (set: SetState<IEmulatorConfig>, get: GetState<Partial<IAlert & IEmulatorConfig & ITitleBar>>): IEmulatorConfig => ({
+const emulatorConfig = (set: SetState<IEmulatorConfig>, get: GetState<Partial<IAlert & IEmulatorConfig>>): IEmulatorConfig => ({
   emulatorBinariesPath: configuredEmulators,
   emulatorGames: [] as RyusakEmulatorGame[],
   selectedConfig: null as RyusakEmulatorConfig,
@@ -28,16 +27,16 @@ const emulatorConfig = (set: SetState<IEmulatorConfig>, get: GetState<Partial<IA
       return;
     }
 
-    localStorage.setItem(`${get().currentEmu}-selected`, selectedConfig.path);
+    localStorage.setItem(`ryu-selected`, selectedConfig.path);
     return set({ selectedConfig });
   },
   addNewEmulatorConfigAction: async () => {
     await Swal.fire({
       icon: "info",
-      text: get().currentEmu === "ryu" ? i18n.t("pickRyuBin") : i18n.t("pickYuzuBin")
+      text: i18n.t("pickRyuBin")
     });
 
-    const response = await invokeIpc("add-emulator-folder", get().currentEmu);
+    const response = await invokeIpc("add-emulator-folder");
 
     if (typeof response === "object") {
       get().openAlertAction("error", response.code);
@@ -69,11 +68,10 @@ const emulatorConfig = (set: SetState<IEmulatorConfig>, get: GetState<Partial<IA
       if (value && value.length > 0) {
         const config: RyusakEmulatorConfig = {
           path: response,
-          name: value,
-          emulator: get().currentEmu
+          name: value
         };
         emulatorBinariesPath.push(config);
-        localStorage.setItem(`${get().currentEmu}-selected`, config.path);
+        localStorage.setItem(`ryu-selected`, config.path);
         localStorage.setItem(LS_KEYS.CONFIG, JSON.stringify(emulatorBinariesPath));
         return set({ emulatorBinariesPath, selectedConfig: config });
       }
@@ -84,17 +82,17 @@ const emulatorConfig = (set: SetState<IEmulatorConfig>, get: GetState<Partial<IA
     const index = configs.findIndex(item => item.path === path);
     configs.splice(index, 1);
     localStorage.setItem(LS_KEYS.CONFIG, JSON.stringify(configs));
-    return set({ emulatorBinariesPath: configs, selectedConfig: configs.filter(c => c.emulator === get().currentEmu)[0] });
+    return set({ emulatorBinariesPath: configs, selectedConfig: configs[0] });
   },
   getModeForBinary: async (path): Promise<RyusakEmulatorMode> => {
-    return invokeIpc("system-scan-for-config", get().currentEmu, path);
+    return invokeIpc("system-scan-for-config", path);
   },
   createDefaultConfig: async () => {
-    let config = await invokeIpc("build-default-emu-config", get().currentEmu);
-    config = { ...config, ...{ isDefault: true, name: config.emulator === "yuzu" ? i18n.t("yuzuDefault"): i18n.t("ryuDefault") }  };
+    let config = await invokeIpc("build-default-emu-config");
+    config = { ...config, ...{ isDefault: true, name: i18n.t("ryuDefault") }  };
     const configs = get().emulatorBinariesPath;
 
-    if (configs.find(c => c.isDefault && c.emulator === get().currentEmu)) {
+    if (configs.find(c => c.isDefault)) {
       return;
     }
 

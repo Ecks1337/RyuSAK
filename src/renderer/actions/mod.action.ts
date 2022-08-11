@@ -33,7 +33,7 @@ const createDownloadModSlice = (set: SetState<ISaveAction>): ISaveAction => ({
 
     ipcRenderer.on("download-progress", onModDownloadProgress);
 
-    const result = await invokeIpc("download-mod", currentMod, version, pickedMod, dataPath, state.currentEmu).catch(() => null);
+    const result = await invokeIpc("download-mod", currentMod, version, pickedMod, dataPath).catch(() => null);
     ipcRenderer.removeListener("download-progress", onModDownloadProgress);
     state.removeFileAction(pickedMod);
 

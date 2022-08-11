@@ -11,12 +11,9 @@ export type RyusakShaders = {
   [key: string]: number;
 };
 
-export type RyusakEmulatorsKind = "yuzu" | "ryu";
-
 export type RyusakEmulatorConfig = {
   path: string,
   name: string,
-  emulator : RyusakEmulatorsKind,
   isDefault?: boolean,
   selected?: boolean
 };

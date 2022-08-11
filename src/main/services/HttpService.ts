@@ -63,7 +63,7 @@ class HttpService {
           agent: url.href.includes("https:") ? httpsAgent : httpAgent
         });
 
-        if (response.status >= 500) {
+        if (response.status >= 400) {
           throw new pRetry.AbortError(response.statusText);
         }
 

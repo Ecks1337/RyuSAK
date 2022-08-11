@@ -6,11 +6,20 @@ import i18n, { use } from "i18next";
 import { initReactI18next } from "react-i18next";
 import Swal from "sweetalert2";
 import "./styles/swal.dark.css";
-import { HashRouter , Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import { ipcRenderer } from "electron";
+import { LS_KEYS } from "../types";
 
-import BootstrapComponent from "./components/BootstrapComponent/BootstrapComponent";
 import useStore from "./actions/state";
-import RootComponent from "./components/RootComponent";
+import LoadingComponent from "./components/LoadingComponent/LoadingComponent";
+import MainComponent from "./components/MainComponent";
+import TOSComponent from "./components/TOSComponent/TOSComponent";
+import AlertComponent from "./components/AlertComponent/AlertComponent";
+import DownloadManagerComponent from "./components/DownloadManagerComponent/DownloadManagerComponent";
+import DownloadSaveComponent from "./components/DownloadSaveComponent/DownloadSaveComponent";
+import DownloadModComponent from "./components/DownloadModComponent/DownloadModComponent";
+import GameDetailComponent from "./components/GameDetailComponent/GameDetailComponent";
+import UpdateComponent from "./components/UpdateComponent/UpdateComponent";
 
 import "./styles/index.css";
 
@@ -29,18 +38,6 @@ import es from "./i18n/es.json";
 import se from "./i18n/se.json";
 import tr from "./i18n/tr.json";
 import zhcn from "./i18n/zh-CN.json";
-
-import TitleBarComponent from "./components/TitleBarComponent/TitleBarComponent";
-import NavBarComponent from "./components/NavBarComponent/NavBarComponent";
-import TOSComponent from "./components/TOSComponent/TOSComponent";
-import AlertComponent from "./components/AlertComponent/AlertComponent";
-import DownloadManagerComponent from "./components/DownloadManagerComponent/DownloadManagerComponent";
-import { ipcRenderer } from "electron";
-import UpdateComponent from "./components/UpdateComponent/UpdateComponent";
-import { LS_KEYS } from "../types";
-import DownloadSaveComponent from "./components/DownloadSaveComponent/DownloadSaveComponent";
-import DownloadModComponent from "./components/DownloadModComponent/DownloadModComponent";
-import GameDetailComponent from "./components/GameDetailComponent/GameDetailComponent";
 
 const darkTheme = createTheme({
   palette: {
@@ -71,22 +68,14 @@ use(initReactI18next)
 export const LANGUAGES = Object.keys(resources);
 
 const App = () => {
-  const searchParams = new URLSearchParams(window.location.search);
-  const shouldUseNativeMenuBar = searchParams.get("useNativeMenuBar") === "true";
-
-  if (shouldUseNativeMenuBar) {
-    // Set the native class when using the native bar for css
-    document.querySelector("body").classList.add("native");
-  }
+  document.querySelector("body").classList.add("native");
 
   const [isAppInitialized, bootstrapAppAction] = useStore(state => [state.isAppInitialized, state.bootstrapAppAction]);
   const [downloadState, setDownloadState] = useState(null);
 
   // Hack, due to tree checking, if Swal is not present the theme is not applied for further calls, need better solution
   // eslint-disable-next-line no-constant-condition
-  if (false) {
-    Swal.fire({ icon: "success", title: "" });
-  }
+  if (false) Swal.fire();
 
   const onUpdateAvailable = () => setDownloadState("downloading");
   const onUpdateDownloaded = () => () => setDownloadState("downloaded");
@@ -107,19 +96,16 @@ const App = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline>
-        {!shouldUseNativeMenuBar && (<TitleBarComponent />)}
-
-        <NavBarComponent />
         <AlertComponent />
         <DownloadManagerComponent />
         <DownloadSaveComponent />
         <DownloadModComponent />
         <UpdateComponent state={downloadState} />
         { !isAppInitialized
-          ? <BootstrapComponent />
+          ? <LoadingComponent />
           : (
             <Routes>
-              <Route path="/" element={<RootComponent />} />
+              <Route path="/" element={<MainComponent />} />
               <Route path="/detail" element={(<GameDetailComponent />)} />
             </Routes>
           )

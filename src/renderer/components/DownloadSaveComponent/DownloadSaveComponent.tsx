@@ -49,7 +49,7 @@ const DownloadSaveComponent = () => {
                 .select(save => save.name)
                 .toArray()
     );
-  });
+  }, [saves]);
 
   const onModalClose = () => {
     clearCurrentSaveAction();
