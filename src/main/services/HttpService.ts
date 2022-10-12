@@ -2,7 +2,6 @@ import { URL } from "url";
 import fetch, { RequestInit, HeadersInit, BodyInit } from "node-fetch";
 import pRetry from "p-retry";
 import { app, BrowserWindow, ipcMain } from "electron";
-import http from "http";
 import https from "https";
 import httpsProxyAgent from "https-proxy-agent";
 import fs from "fs-extra";
@@ -36,11 +35,10 @@ export enum OTHER_URLS {
   ESHOP_DATA              = "https://github.com/AdamK2003/titledb/releases/download/latest/titles.US.en.json",
   GAME_BANANA_SEARCH_GAME = "https://api.gamebanana.com/Core/List/Like?itemtype=Game&field=name&match={match}",
   GAME_BANANA_SEARCH_MODS = "https://gamebanana.com/apiv10/Mod/Index?_nPage=1&_nPerpage=50&_sSort=Generic_MostDownloaded&_aFilters[Generic_Game]={id}",
-  KEYS                    = "http://emusak.coveforme.com/firmware/prod.keys",
+  KEYS                    = "https://sigmapatches.coomer.party/prod.keys",
 }
 
 class HttpService {
-  private httpAgent: http.Agent;
   private httpsAgent: https.Agent;
 
   constructor() {
@@ -57,17 +55,14 @@ class HttpService {
   }
 
   public updateHttpAgents(proxy: string) {
-    let oldhttpAgent = this.httpAgent;
     let oldhttpsAgent = this.httpsAgent;
 
     if (proxy) {
-      this.httpsAgent = this.httpAgent = httpsProxyAgent(proxy);
+      this.httpsAgent = httpsProxyAgent(proxy);
     } else {
-      this.httpAgent = new http.Agent();
       this.httpsAgent = new https.Agent();
     }
 
-    oldhttpAgent?.destroy();
     oldhttpsAgent?.destroy();
   }
 
@@ -211,12 +206,7 @@ class HttpService {
   public async downloadKeys(retries = 3) {
     return pRetry(
       async () => {
-        const response = await this.fetch(OTHER_URLS.KEYS, {
-          agent: this.httpAgent,
-          headers: {
-            "User-Agent": "node-fetch"
-          }
-        });
+        const response = await this.fetch(OTHER_URLS.KEYS);
 
         if (response.status >= 400) {
           throw new pRetry.AbortError(response.statusText);
