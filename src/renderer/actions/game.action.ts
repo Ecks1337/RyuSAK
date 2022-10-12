@@ -1,4 +1,3 @@
-import { SetState } from "zustand/vanilla";
 import Swal from "sweetalert2";
 import useTranslation from "../i18n/I18nService";
 import { invokeIpc } from "../utils";
@@ -6,11 +5,10 @@ import { invokeIpc } from "../utils";
 const { t } = useTranslation();
 
 export interface IGameAction {
-  deleteGameAction: (titleId: string, dataPath: string) => void,
-  deletedGame?: string,
+  deleteGameAction: (titleId: string, dataPath: string) => Promise<boolean>
 }
 
-const createGameSlice = (set: SetState<IGameAction>): IGameAction => ({
+const createGameSlice = (): IGameAction => ({
   deleteGameAction: async (titleId, dataPath) => {
     const { isConfirmed } = await Swal.fire({
       icon: "warning",
@@ -22,11 +20,11 @@ const createGameSlice = (set: SetState<IGameAction>): IGameAction => ({
     });
 
     if (!isConfirmed) {
-      return;
+      return false;
     }
 
     await invokeIpc("delete-game", titleId, dataPath);
-    return set({ deletedGame: titleId });
+    return true;
   }
 });
 

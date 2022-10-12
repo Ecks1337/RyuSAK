@@ -17,7 +17,7 @@ const useStore = create((set: SetState<any>, get: GetState<any>) => ({
   ...createAlertSlice(set),
   ...createEmulatorFilesSLice(set, get),
   ...createDownloadManagerSlice(set, get),
-  ...createGameSlice(set),
+  ...createGameSlice(),
   ...createDownloadSaveSlice(set),
   ...createDownloadModSlice(set),
   ...createShadersSlice(set),

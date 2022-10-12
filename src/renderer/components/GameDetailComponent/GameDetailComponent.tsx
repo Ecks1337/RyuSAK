@@ -58,7 +58,6 @@ const GameDetailComponent = () => {
     needRefreshShaders,
     shareShaders,
     deleteGameAction,
-    deletedGame,
     threshold,
     shadersMinVersion
   ] = useStore(state => [
@@ -71,7 +70,6 @@ const GameDetailComponent = () => {
     state.needRefreshShaders,
     state.shareShaders,
     state.deleteGameAction,
-    state.deletedGame,
     state.threshold,
     state.shadersMinVersion
   ]);
@@ -81,10 +79,6 @@ const GameDetailComponent = () => {
   const [localShadersCount, setLocalShadersCount] = useState(0);
   const { t } = useTranslation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    deletedGame && navigate(-1);
-  }, [deletedGame]);
 
   const extractCompatibilityLabels = (response: GithubIssue) => {
     // Probably non 200 response from GitHub, so leave it as default value (null)
@@ -165,7 +159,7 @@ const GameDetailComponent = () => {
         <Button
           variant="contained"
           color="error"
-          onClick={() => deleteGameAction(metaData.id, dataPath)}
+          onClick={() => deleteGameAction(metaData.id, dataPath).then(confirmed => confirmed && navigate(-1))}
           startIcon={<DeleteIcon />}
         >
           {t("deleteGame")}
