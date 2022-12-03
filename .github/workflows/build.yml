@@ -17,7 +17,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        include:
+          - os:   'ubuntu-latest'
+            arch: 'x64'
+          - os:   'windows-latest'
+            arch: 'x64'
+          - os:   'macos-latest'
+            arch: 'arm64'
 
     steps:
       - name: Git checkout
@@ -33,20 +39,20 @@ jobs:
         run:  npm clean-install --include=dev
 
       - name: Build
-        run:  npm run build
+        run:  npm run build -- --arch ${{ matrix.arch }}
 
       # If the action trigger was NOT a version tag
       - name: Upload artifact
         if:   startsWith(github.ref, 'refs/tags/v') == false
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.os }}
+          name: ${{ matrix.os }}-${{ matrix.arch }}
           path: out/**/*
 
       # If the action trigger was a version tag
       - name: Make distributables
         if:   startsWith(github.ref, 'refs/tags/v')
-        run:  npm run make
+        run:  npm run make -- --arch ${{ matrix.arch }}
 
       - name: Publish to Releases
         if:   startsWith(github.ref, 'refs/tags/v')

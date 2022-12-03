@@ -6,7 +6,7 @@
   "repository": "https://github.com/Ecks1337/RyuSAK",
   "main": ".webpack/main",
   "scripts": {
-    "start": "cross-env NODE_ENV=development electron-forge start",
+    "start": "electron-forge start",
     "build": "electron-forge package",
     "make": "electron-forge make --skip-package",
     "lint": "eslint --ext .ts,.tsx ."
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.61",
     "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-dmg": "^6.0.4",
     "@electron-forge/maker-rpm": "^6.0.0-beta.61",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
     "@electron-forge/maker-zip": "^6.0.0-beta.61",
@@ -34,13 +35,14 @@
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "@vercel/webpack-asset-relocator-loader": "1.7.0",
-    "cross-env": "^7.0.3",
     "css-loader": "^6.0.0",
     "electron": "^18.3.7",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "^2.20.0",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.0.1",
+    "macos-alias": "^0.2.11",
+    "nan": "^2.17.0",
     "node-loader": "^2.0.0",
     "style-loader": "^3.0.0",
     "ts-loader": "^9.2.2",
