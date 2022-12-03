@@ -15,7 +15,10 @@ module.exports = {
       }
     },
     {
-      "name": "@electron-forge/maker-dmg"
+      "name": "@electron-forge/maker-dmg",
+      "config": {
+        "background": "./src/assets/dmg_background.png"
+      }
     },
     {
       "name": "@electron-forge/maker-zip"
