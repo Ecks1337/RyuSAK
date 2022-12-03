@@ -1,6 +1,7 @@
-import { app, ipcMain, BrowserWindow } from "electron";
+import { ipcMain, BrowserWindow } from "electron";
 import loadComponentIpcHandler from "./loadComponent.ipc";
 import {
+  getRyujinxPath,
   scanGamesForConfig,
   deleteGameProps,
   deleteGame
@@ -23,7 +24,6 @@ import {
 import { countShaders, countShadersProps, installShaders, installShadersProps, shareShaders } from "./shaders";
 import { searchGameBanana, searchProps } from "./gamebanana";
 import { setProxy } from "./settings.ipc";
-import * as path from "path";
 
 export type IPCCalls = {
   "load-components": Promise<ReturnType<typeof loadComponentIpcHandler>>,
@@ -45,7 +45,7 @@ export type IPCCalls = {
   "search-gamebanana": ReturnType<typeof searchGameBanana>,
   "delete-game": ReturnType<typeof deleteGame>,
   "set-proxy": ReturnType<typeof setProxy>,
-  "get-ryujinx-appdata-path": string,
+  "get-ryujinx-appdata-path": ReturnType<typeof getRyujinxPath>,
 };
 
 const makeIpcRoutes = (mainWindow: BrowserWindow) => {
@@ -68,7 +68,7 @@ const makeIpcRoutes = (mainWindow: BrowserWindow) => {
   ipcMain.handle("search-gamebanana", async (_, ...args: searchProps) => searchGameBanana(...args));
   ipcMain.handle("delete-game", (_, ...args: deleteGameProps) => deleteGame(...args));
   ipcMain.handle("set-proxy", async (_, proxy: string) => setProxy(proxy));
-  ipcMain.handle("get-ryujinx-appdata-path", (_) => path.resolve(app.getPath("appData"), "Ryujinx"));
+  ipcMain.handle("get-ryujinx-appdata-path", (_) => getRyujinxPath());
 };
 
 export default makeIpcRoutes;
