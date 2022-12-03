@@ -20,6 +20,14 @@ Download the `RyuSAK-X.Y.Z.Setup.exe` file, then install it by running the insta
 #### Portable
 Download the `RyuSAK-win32-x64-X.Y.Z.zip` file, then unzip it to your chosen location
 
+### macOS (arm64)
+
+#### Install
+Download the `RyuSAK-X.Y.Z-arm64.dmg` file, then install it by opening the file and draging the RyuSAK icon into the Applications folder
+
+#### Portable
+Download the `RyuSAK-darwin-arm64-X.Y.Z.zip` file, then unzip it to your chosen location
+
 ### Linux
 
 #### Arch Linux
@@ -49,12 +57,7 @@ Download the `RyuSAK-linux-x64-X.Y.Z.zip` file, then unzip it to your chosen loc
 Requirements:
 * NodeJS v14.20.0
 
-Install dependencies:
-```
-npm install --include=dev
-npm run tinfoil
-npm run eshop
-```
+Install dependencies: `npm install --include=dev`
 
 Run local build: `npm start`
 
