@@ -17,7 +17,8 @@ module.exports = {
     {
       "name": "@electron-forge/maker-dmg",
       "config": {
-        "background": "./src/assets/dmg_background.png"
+        "background": "./src/assets/dmg_background.png",
+        "icon": "./src/assets/icon.icns"
       }
     },
     {
