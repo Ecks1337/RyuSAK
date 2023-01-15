@@ -17,7 +17,7 @@
   "dl_firmware": "下载固件",
   "dl_keys": "下载密钥",
   "addConfigTitle": "给你的新配置添加一个名字",
-  "addConfigEg": "例如 \"Portable\", \"Flatpack\"",
+  "addConfigEg": "例如 \"Portable\", \"Flatpak\"",
   "mode": "模式",
   "readingDataPath": "RyuSAK 正在读取数据",
   "launchRyujinx": "<a href=\"https://ryujinx.org/download\" target=\"_blank\">下载 Ryujinx</a> 并首先启动任何游戏。您的所有游戏都会自动显示在这里之后。请注意，这里只会显示在 Ryujinx 中启动的游戏。Ryujinx 没有付费专区。如果您使用的是便携式安装，请使用左上角的“配置”按钮。",

@@ -3,7 +3,7 @@
   "loading_data": "Lade Daten...",
   "configuration": "Konfiguration",
   "addConfigTitle": "Bitte einen Namen für die neue Konfiguration hinzufügen",
-  "addConfigEg": "z.B \"Portable\", \"Flatpack\"",
+  "addConfigEg": "z.B \"Portable\", \"Flatpak\"",
   "mode": "Modus",
   "readingDataPath": "RyuSAK liest Daten von",
   "launchRyujinx": "<a href=\"https://ryujinx.org/download\" target=\"_blank\">Lade Ryujinx herunter</a> und starte zuerst ein beliebiges Spiel. Anschließend sollten alle vorhandenen Spiele hier automatisch angezeigt werden. Bitte beachte, dass nur Spiele angezeigt werden, die bereits einmal in Ryujinx gestartet worden sind. Ryujinx befindet sich nicht hinter einer Paywall. Wenn eine portable Installation verwenden werden soll, drücke auf den \"Konfiguration\" Knopf oben links.",

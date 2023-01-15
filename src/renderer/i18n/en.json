@@ -22,7 +22,7 @@
   "addConfiguration": "Add additional configuration",
   "pickRyuDataPath": "Please select the Ryujinx data folder. (\"%APPDATA%\\Ryujinx\" or \"~/.config/Ryujinx/\" by default)",
   "addConfigTitle": "Add a name to your new configuration",
-  "addConfigEg": "e.g \"Portable\", \"Flatpack\"",
+  "addConfigEg": "e.g \"Portable\", \"Flatpak\"",
   "mode": "Mode",
   "readingDataPath": "RyuSAK is reading data from",
   "launchRyujinx": "<a href=\"https://ryujinx.org/download\" target=\"_blank\">Download Ryujinx</a> and launch any game first. All your games should show up here automatically after that. Please note, that only games launched in Ryujinx will be shown here. Ryujinx is not behind a paywall. If you are using a portable installation, use the \"Configuration\" button on the top left.",

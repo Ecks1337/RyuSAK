@@ -5,7 +5,7 @@
   "dl_firmware": "Baixar firmware",
   "dl_keys": "Baixar keys",
   "addConfigTitle": "Escolha um nome para a nova configuração",
-  "addConfigEg": "Ex.: \"Portable\", \"Flatpack\"",
+  "addConfigEg": "Ex.: \"Portable\", \"Flatpak\"",
   "mode": "Modo",
   "readingDataPath": "RyuSAK está lendo os dados do diretório: ",
   "launchRyujinx": "<a href=\"https://ryujinx.org/download\" target=\"_blank\">Baixe o Ryujinx</a> e inicie qualquer jogo primeiro, após isso todos os seus jogos devem aparecer automaticamente aqui. Observe que se você nunca iniciou determinado jogo no Ryujinx, ele não aparecerá aqui. Não há necessidade de subscrição para o Ryujinx. Se você estiver usando uma instalação portable, use o botão \"Configuração\" no canto superior esquerdo.",

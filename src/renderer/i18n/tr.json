@@ -18,7 +18,7 @@
   "dl_firmware": "Firmware indir",
   "dl_keys": "Keys indir",
   "addConfigTitle": "Yeni yapılandırmaya isim ekleyin",
-  "addConfigEg": "Mesela \"Portable\", \"Flatpack\"",
+  "addConfigEg": "Mesela \"Portable\", \"Flatpak\"",
   "mode": "Mod",
   "readingDataPath": "RyuSAK belirtilen kaynaktan veri topluyor:",
   "launchRyujinx": "<a href=\"https://ryujinx.org/download\" target=\"_blank\">Ryujinx</a> indirip herhangi bir oyunu açtıktan sonra tüm oyunlarınız otomatik olarak burada gözükecektir. Eğer Ryujinx'te bir oyunu hiç açmadıysanız o oyun burada gözükmeyecektir. Ryujinx, ödeme duvarı arkasında değildir. Eğer taşınabilir kurulum kullanıyorsanız sol üst köşedeki \"Configuration\" tuşunu kullanın.",
