@@ -1,0 +1,57 @@
+2022-12
+Contributor(s): 
+Ecks
+dependabot[bot]
+Ecks1337
+    Separate PC and Mac shader caches
+    List AUR package in README.mdResolves #36
+    Bump version to v1.6.0
+    Add macos arm64 dependencies, build target and action (#32)* Add macos arm64 dependencies, build target and action* Update README* Make closing behave normally, even on macos* Correctly load the default Ryujinx location* Add background to DMG* Update dmg background and set dmg icon
+    Pin sweetalert2 to 11.4.8sweetalert2 versions 11.4.9 and above are vulnerable to hidden functionality that was introduced by the maintainer. The package outputs audio and/or video messages that do not pertain to the functionality of the package and is not included in versions 11.0.0 - 11.4.8
+    Bump got, @electron-forge/cli, @electron-forge/maker-deb, @electron-forge/maker-rpm, @electron-forge/maker-squirrel, @electron-forge/maker-zip and electronBumps [got](https://github.com/sindresorhus/got) to 11.8.5 and updates ancestor dependencies [got](https://github.com/sindresorhus/got), [@electron-forge/cli](https://github.com/electron/forge), [@electron-forge/maker-deb](https://github.com/electron/forge), [@electron-forge/maker-rpm](https://github.com/electron/forge), [@electron-forge/maker-squirrel](https://github.com/electron/forge), [@electron-forge/maker-zip](https://github.com/electron/forge) and [electron](https://github.com/electron/electron). These dependencies need to be updated together.Updates `got` from 9.6.0 to 11.8.5- [Release notes](https://github.com/sindresorhus/got/releases)- [Commits](https://github.com/sindresorhus/got/compare/v9.6.0...v11.8.5)Updates `@electron-forge/cli` from 6.0.0-beta.65 to 6.0.4- [Release notes](https://github.com/electron/forge/releases)- [Changelog](https://github.com/electron/forge/blob/main/CHANGELOG.md)- [Commits](https://github.com/electron/forge/compare/v6.0.0-beta.65...v6.0.4)Updates `@electron-forge/maker-deb` from 6.0.0-beta.65 to 6.0.4- [Release notes](https://github.com/electron/forge/releases)- [Changelog](https://github.com/electron/forge/blob/main/CHANGELOG.md)- [Commits](https://github.com/electron/forge/compare/v6.0.0-beta.65...v6.0.4)Updates `@electron-forge/maker-rpm` from 6.0.0-beta.65 to 6.0.4- [Release notes](https://github.com/electron/forge/releases)- [Changelog](https://github.com/electron/forge/blob/main/CHANGELOG.md)- [Commits](https://github.com/electron/forge/compare/v6.0.0-beta.65...v6.0.4)Updates `@electron-forge/maker-squirrel` from 6.0.0-beta.65 to 6.0.4- [Release notes](https://github.com/electron/forge/releases)- [Changelog](https://github.com/electron/forge/blob/main/CHANGELOG.md)- [Commits](https://github.com/electron/forge/compare/v6.0.0-beta.65...v6.0.4)Updates `@electron-forge/maker-zip` from 6.0.0-beta.65 to 6.0.4- [Release notes](https://github.com/electron/forge/releases)- [Changelog](https://github.com/electron/forge/blob/main/CHANGELOG.md)- [Commits](https://github.com/electron/forge/compare/v6.0.0-beta.65...v6.0.4)Updates `electron` from 18.3.7 to 22.0.0- [Release notes](https://github.com/electron/electron/releases)- [Changelog](https://github.com/electron/electron/blob/main/docs/breaking-changes.md)- [Commits](https://github.com/electron/electron/compare/v18.3.7...v22.0.0)---updated-dependencies:- dependency-name: got  dependency-type: indirect- dependency-name: "@electron-forge/cli"  dependency-type: direct:development- dependency-name: "@electron-forge/maker-deb"  dependency-type: direct:development- dependency-name: "@electron-forge/maker-rpm"  dependency-type: direct:development- dependency-name: "@electron-forge/maker-squirrel"  dependency-type: direct:development- dependency-name: "@electron-forge/maker-zip"  dependency-type: direct:development- dependency-name: electron  dependency-type: direct:development...Signed-off-by: dependabot[bot] <support@github.com>
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+2022-11
+Contributor(s): 
+dependabot[bot]
+    Bump electron from 16.2.8 to 18.3.7 (#20)Bumps [electron](https://github.com/electron/electron) from 16.2.8 to 18.3.7.- [Release notes](https://github.com/electron/electron/releases)- [Changelog](https://github.com/electron/electron/blob/main/docs/breaking-changes.md)- [Commits](https://github.com/electron/electron/compare/v16.2.8...v18.3.7)---updated-dependencies:- dependency-name: electron  dependency-type: direct:development...Signed-off-by: dependabot[bot] <support@github.com>Signed-off-by: dependabot[bot] <support@github.com>Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>Co-authored-by: Ecks <ecks1337@protonmail.com>
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+2022-10
+Contributor(s): 
+Ecks1337
+    Use new post shader API
+    bump version to 1.4.4
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+2022-09
+Contributor(s): 
+Ecks1337
+    Fix GameBanana search
+    Fix bugs in HttpService and bump version numberCloses #10Closes #11
+    Misc changes- Change webhook URL- Load minimum shader cache version from the server- Remove LDN build warning- Clean up some code
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+2022-08
+Contributor(s): 
+Ecks
+Ecks1337
+    Implement shader uploading
+    Misc changes- Remove DNS option (code was bugged so it wasn't working anyway)- Also reuse http/s agents when proxy is enabled so as to not exhaust OS sockets- Update the CDN URLs for new JSON paths- Set user-agent to RyuSAK/{version}- Clean up a bunch of misc code
+    title metadata code cleanup
+    Add new data paths directly and clean up some codeCloses #8
+    bump version number and update screenshot
+    A lot of changes to the UI (#4)Major changes to the UI
+    Update build system and CI
+    Correct README.md
+    Switch to SPIR-V shadersAlso tweaked the shader sharing logic to disable sharing when the threshold is set to -1
+    Clean up build system
+    Re-added support for downloading mods
+    Ecks used revive. It's super effective!
+    Fork and rebrand in preparation for further changes
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
