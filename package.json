@@ -1,7 +1,7 @@
 {
   "name": "RyuSAK",
   "productName": "RyuSAK",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "RyuSAK",
   "repository": "https://github.com/Ecks1337/RyuSAK",
   "main": ".webpack/main",
@@ -32,6 +32,7 @@
     "@types/glob": "^7.2.0",
     "@types/react": "^17.0.31",
     "@types/react-dom": "^17.0.10",
+    "@types/unidecode": "^0.1.1",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "@vercel/webpack-asset-relocator-loader": "1.7.0",
@@ -41,7 +42,6 @@
     "eslint-plugin-import": "^2.20.0",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.0.1",
-    "macos-alias": "^0.2.11",
     "nan": "^2.17.0",
     "node-loader": "^2.0.0",
     "style-loader": "^3.0.0",
@@ -75,6 +75,7 @@
     "react-router-dom": "^6.2.2",
     "semver": "^7.3.5",
     "sweetalert2": "11.4.8",
+    "unidecode": "^0.1.8",
     "zustand": "^3.6.0"
   }
 }

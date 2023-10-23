@@ -1,14 +1,16 @@
 import HttpService from "../services/HttpService";
 import { GameBananaMod } from "../../types";
-
-const nonAscii = new RegExp(/[^\x00-\x7F]/g);
+import { Console } from "console";
+import unidecode from 'unidecode';
 
 export type searchProps = [string];
 
 export const searchGameBanana = async (...args: searchProps): Promise<Array<GameBananaMod>> => {
+  var myConsole = new Console(process.stdout, process.stderr);
   const [name] = args;
 
-  const results = await HttpService.gameBananaSearchGame(name.replace(nonAscii, ""));
+  const results = await HttpService.gameBananaSearchGame(unidecode(name.replace(/\s/g, '%')));
+  myConsole.log(unidecode(name), results);
   if (!results || results.length === 0) {
     return;
   }
